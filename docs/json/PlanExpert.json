@@ -1,0 +1,70 @@
+{
+    "name": "Plan Expert",
+    "description": "Plan para 1 estudiante con acceso completo",
+    "amount": 249,
+    "customFields": [
+        {
+            "label": "AHORRAS 7 MESES",
+            "name": "savings_label",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": ""
+        },
+        {
+            "label": "Contenido profesional y actualizado con certificados digitales",
+            "name": "feature_content_digital",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Certificados físicos para las rutas de aprendizaje profesional",
+            "name": "feature_physical_certificates",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Acceso a las escuelas de Startups, Inglés y liderazgo",
+            "name": "feature_special_schools",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Eventos exclusivos como Platzi Conf",
+            "name": "feature_exclusive_events",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Descarga contenido en la app móvil",
+            "name": "feature_mobile_download",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        }
+    ],
+    "billingCycleType": "Year",
+    "billingCyclesNumber": 1,
+    "cyclesToBillBeforeAllowCancelation": null,
+    "termsAndConditions": "Plan anual. Ahorra $343 comparado con 12 meses del plan mensual.",
+    "subscriberLimit": null,
+    "enrollmentEndDate": null,
+    "subscriptionEndDate": null,
+    "billingDay": null,
+    "locationId": 578
+}

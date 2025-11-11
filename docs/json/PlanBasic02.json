@@ -1,0 +1,61 @@
+{
+    "name": "Plan Basic 02",
+    "description": "Plan para 1 estudiante",
+    "amount": 49,
+    "customFields": [
+        {
+            "label": "Contenido profesional y actualizado con certificados digitales",
+            "name": "feature_content_digital",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Certificados físicos para las rutas de aprendizaje profesional",
+            "name": "feature_physical_certificates",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "included"
+        },
+        {
+            "label": "Acceso a las escuelas de Startups, Inglés y liderazgo",
+            "name": "feature_special_schools",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "not_included"
+        },
+        {
+            "label": "Eventos exclusivos como Platzi Conf",
+            "name": "feature_exclusive_events",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "not_included"
+        },
+        {
+            "label": "Descarga contenido en la app móvil",
+            "name": "feature_mobile_download",
+            "placeholder": "",
+            "isRequired": false,
+            "isVisible": false,
+            "isEditable": false,
+            "defaultValue": "not_included"
+        }
+    ],
+    "billingCycleType": "Month",
+    "billingCyclesNumber": 1,
+    "cyclesToBillBeforeAllowCancelation": null,
+    "termsAndConditions": "Cobro mensual recurrente. Puedes cancelar en cualquier momento.",
+    "subscriberLimit": null,
+    "enrollmentEndDate": null,
+    "subscriptionEndDate": null,
+    "billingDay": 1,
+    "locationId": 578
+}
