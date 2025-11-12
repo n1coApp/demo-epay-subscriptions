@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/apiWrapper';
-import PaymentModal from './PaymentModal';
+import PaymentModal from './PaymentModal/index';
 
 // Obtener la lista de IDs de planes desde variables de entorno
 const getPlanIds = () => {

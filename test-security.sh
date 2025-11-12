@@ -16,7 +16,7 @@ echo "╚═══════════════════════�
 echo ""
 
 PROXY_URL="http://localhost:3001"
-API_KEY="2I9Phh1C9k3pcWX72m6YFuPnVcsbijy2sbjWmtIXRtw="  # Cambia esto por tu clave real
+API_KEY="genera-una-clave-aleatoria-aqui"  # Cambia esto por tu clave real
 
 # Colores para output
 RED='\033[0;31m'
@@ -25,10 +25,26 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # =================================================================
-# Prueba 1: Sin API Key (debe fallar)
+# Prueba 1: Health Check
 # =================================================================
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Prueba 1: Petición SIN API Key"
+echo "📋 Prueba 1: Health Check Endpoint"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+RESPONSE=$(curl -s "$PROXY_URL/health")
+echo "Respuesta: $RESPONSE"
+
+if echo "$RESPONSE" | grep -q "status.*ok"; then
+    echo -e "${GREEN}✅ PASS: Health check funcionando${NC}"
+else
+    echo -e "${RED}❌ FAIL: Health check no responde${NC}"
+fi
+echo ""
+
+# =================================================================
+# Prueba 2: Sin API Key (debe fallar)
+# =================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📋 Prueba 2: Petición SIN API Key"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 RESPONSE=$(curl -s -X POST "$PROXY_URL/api/auth/token")
 echo "Respuesta: $RESPONSE"
@@ -41,10 +57,10 @@ fi
 echo ""
 
 # =================================================================
-# Prueba 2: API Key incorrecta (debe fallar)
+# Prueba 3: API Key incorrecta (debe fallar)
 # =================================================================
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Prueba 2: Petición con API Key INCORRECTA"
+echo "📋 Prueba 3: Petición con API Key INCORRECTA"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 RESPONSE=$(curl -s -X POST "$PROXY_URL/api/auth/token" \
   -H "x-api-key: clave-incorrecta-123")
@@ -58,10 +74,10 @@ fi
 echo ""
 
 # =================================================================
-# Prueba 3: API Key correcta (debe funcionar)
+# Prueba 4: API Key correcta (debe funcionar)
 # =================================================================
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Prueba 3: Petición con API Key CORRECTA"
+echo "📋 Prueba 4: Petición con API Key CORRECTA"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 RESPONSE=$(curl -s -X POST "$PROXY_URL/api/auth/token" \
   -H "x-api-key: $API_KEY")
@@ -75,10 +91,10 @@ fi
 echo ""
 
 # =================================================================
-# Prueba 4: Rate Limiting (debe bloquear después de 30 peticiones)
+# Prueba 5: Rate Limiting (debe bloquear después de 30 peticiones)
 # =================================================================
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Prueba 4: Rate Limiting (35 peticiones rápidas)"
+echo "📋 Prueba 5: Rate Limiting (35 peticiones rápidas)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Enviando 35 peticiones..."
 
@@ -113,21 +129,6 @@ else
 fi
 echo ""
 
-# =================================================================
-# Prueba 5: Health Check
-# =================================================================
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Prueba 5: Health Check Endpoint"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-RESPONSE=$(curl -s "$PROXY_URL/health")
-echo "Respuesta: $RESPONSE"
-
-if echo "$RESPONSE" | grep -q "status.*ok"; then
-    echo -e "${GREEN}✅ PASS: Health check funcionando${NC}"
-else
-    echo -e "${RED}❌ FAIL: Health check no responde${NC}"
-fi
-echo ""
 
 # =================================================================
 # Resumen Final
@@ -137,14 +138,14 @@ echo "║  📊 Resumen de Pruebas                               ║"
 echo "╚═══════════════════════════════════════════════════════╝"
 echo ""
 echo "Capas de seguridad verificadas:"
-echo "  1. ✅ Validación de API Key"
-echo "  2. ✅ Rate Limiting"
-echo "  3. ✅ Health Check"
+echo "  1. ✅ Health Check"
+echo "  2. ✅ Validación de API Key"
+echo "  3. ✅ Rate Limiting"
 echo ""
 echo "Próximos pasos:"
 echo "  • Abre http://localhost:3000 en tu navegador"
 echo "  • Verifica que los planes se carguen automáticamente"
-echo "  • Revisa la consola del navegador para ver logs de autenticación"
+echo "  • Revisa la consola del navegador para ver logs"
 echo ""
 echo -e "${GREEN}🎉 Todas las pruebas completadas!${NC}"
 echo ""

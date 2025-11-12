@@ -13,6 +13,7 @@ Sistema de suscripciones con integración a la API de pagos N1co. Incluye autent
 ![N1co API](https://img.shields.io/badge/N1co-API%20v3-98ca3f?style=flat)
 
 
+---
 
 ## Características
 
@@ -76,54 +77,55 @@ Sistema de suscripciones con integración a la API de pagos N1co. Incluye autent
 
 ### Pasos
 
-1. **Clonar el repositorio:** El proyecto utiliza un sistema de variables de entorno separadas para **backend** (credenciales seguras) y **frontend** (datos públicos).
+1. **Clonar el repositorio:** 
 
 ```bash
-git clone 
+   git clone 
 ```
 
 2.  **Configura el archivo `.env`:** Copia el archivo de ejemplo:
 
 
 ```bash
- cp .env.example .env
+   cp .env.example .env
 ```
 
 3.  **Instalar dependencias:**   
 
 ```bash
-
-npm install
-
+   npm install
 ```
 
+---
 
 ### Verificación del Sistema
 
 
-### Iniciar frontend y backend simultáneamente   
+- **Iniciar frontend y backend simultáneamente**   
 ```bash
-npm run dev  
+   npm run dev  
  ```
 
-
-### Solo frontend (puerto 3000)
+- **Solo frontend (puerto 3000)** 
 ```bash
-npm start 
+   npm start 
  ```
 
-###  Solo backend (puerto 3001)   
+- **Solo backend (puerto 3001)**    
 ```bash
-npm run server   
+   npm run server   
 ```
-**Verifica el Backend:** Desarrollo Local   
+- **Verifica el Backend:**   
 ```bash
    curl http://localhost:3001/health
 ```  
 
-**Verifica el Frontend:** Abre `http://localhost:3000` en tu navegador
+- **Verifica el Frontend:** 
+```bash
+   http://localhost:3000
+```  
 
-
+---
 
 ## 📁 Estructura del Proyecto
 
@@ -143,9 +145,21 @@ DemoEpay/
 
 │   │   ├── IFrameWithMessageListener.js  # Manejo de 3DS
 
-│   │   ├── PaymentModal.js               # Modal de pagos
+│   │   ├── PricingSection.js             # Sección de planes
 
-│   │   └── PricingSection.js             # Sección de planes
+│   │   └── PaymentModal/                 # Módulo de pagos
+
+│   │       ├── index.js                  # Componente principal del modal
+
+│   │       ├── FormInput.js              # Input reutilizable con label
+
+│   │       ├── ProcessingOverlay.js      # Overlay de procesamiento
+
+│   │       ├── PaymentMethodSelector.js  # Selector de métodos de pago
+
+│   │       ├── CardPaymentForm.js        # Formulario de pago con tarjeta
+
+│   │       └── SuccessModal.js           # Modal de confirmación exitosa
 
 │   ├── utils/   
 
@@ -174,6 +188,7 @@ DemoEpay/
 
 ```
 
+---
 
 ### Endpoints Utilizados
 
@@ -252,10 +267,10 @@ El servidor valida la configuración al arrancar:
 ```
 
 Ejecuta 5 tests:
-1. ✅ Acceso con API Key válida
+1. ✅ Health Check Endpoint
 2. ❌ Rechazo sin API Key
 3. ❌ Rechazo con API Key inválida
-4. ❌ Rechazo con API Key default
+4. ✅ Acceso con API Key válida
 5. ⏱️ Rate limiting activado
 
 ---
@@ -316,11 +331,6 @@ VITE_PLAN_IDS=1742,1728,1729
 VITE_LOCATION_CODE=N1C0CD001
 ```
 
-3. **Despliegue en Vercel/Netlify:**
-   - Vercel/Netlify detectarán automáticamente que es un proyecto Vite
-   - Configura las variables de entorno en el panel
-   - El comando de build es: `npm run build`
-   - El directorio de salida es: `build`
 
 ### Backend
 
@@ -345,9 +355,10 @@ node server.js
 const PORT = process.env.PORT || 3001;
 ```
 
+---
 
 ## 📚 Documentación Adicional
 
-- [test-security.sh](./test-security.sh) - Script de pruebas automáticas
+- [Script de pruebas](./test-security.sh) - ./test-security (modificar PROXY_URL y API_KEY)
 - [N1co API Docs](https://docs.n1co.com/) - Documentación oficial
 
