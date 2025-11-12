@@ -7,7 +7,7 @@ Sistema de suscripciones con integración a la API de pagos N1co. Incluye autent
 
 
 ![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat&logo=react)
-
+![Vite](https://img.shields.io/badge/Vite-6.0.1-646CFF?style=flat&logo=vite)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=node.js)
 
 ![N1co API](https://img.shields.io/badge/N1co-API%20v3-98ca3f?style=flat)
@@ -37,6 +37,7 @@ Sistema de suscripciones con integración a la API de pagos N1co. Incluye autent
 
 - **ReactJS 19:** Framework para la interfaz de usuario.
 
+- **Vite:** Build tool ultrarrápido con HMR instantáneo
 - **Node.js + Express:** Servidor proxy para autenticación segura.
 
 ---
@@ -67,9 +68,9 @@ Sistema de suscripciones con integración a la API de pagos N1co. Incluye autent
 
 ### Prerrequisitos
 
-- **Node.js:** v14 o superior
+- **Node.js:** v18 o superior
 
-- **npm:** v6 o superior
+- **npm:** v9 o superior
 
 - **Cuenta N1co:** Client ID y Client Secret
 
@@ -130,11 +131,10 @@ npm run server
 ```
 
 DemoEpay/  
-
+├── index.html               # HTML principal (raíz, requerido por Vite)
+├── vite.config.js           # Configuración de Vite
 ├── public/  
-
-│   ├── index.html           
-
+│   ├── favicon.ico           
 │   └── robots.txt         
 
 ├── src/
@@ -188,18 +188,23 @@ DemoEpay/
 
 ## 🔐 Variables de Entorno
 
+### Variables del Backend (sin prefijo)
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `N1CO_CLIENT_ID` | ID de cliente N1co | `c8573b9a-88ea-45b6...` |
+| `N1CO_CLIENT_SECRET` | Secret de cliente N1co | `kt48Q~e8FS1FNgve...` |
+| `API_BASE_URL` | URL base de N1co API | `https://api.h4b.dev/api/v3` |
+| `PROXY_API_KEY` | Key para autenticar frontend | `2I9Phh1C9k...` |
+| `FRONTEND_URL` | URL del frontend en prod | `https://app.com` |
 
-| Variable | Tipo | Descripción | Ejemplo |
-|----------|------|-------------|---------|
-| `N1CO_CLIENT_ID` | Backend | ID de cliente N1co | `c8573b9a-88ea-45b6...` |
-| `N1CO_CLIENT_SECRET` | Backend | Secret de cliente N1co | `kt48Q~e8FS1FNgve...` |
-| `PROXY_API_KEY` | Backend | Key para autenticar frontend | `2I9Phh1C9k...` |
-| `FRONTEND_URL` | Backend | URL del frontend en prod | `https://app.com` |
-| `REACT_APP_API_BASE_URL` | Frontend | URL base de N1co API | `https://api.h4b.dev/api/v3` |
-| `REACT_APP_API_PROXY_URL` | Frontend | URL del servidor proxy | `http://localhost:3001` |
-| `REACT_APP_PROXY_API_KEY` | Frontend | Key para el proxy (igual a PROXY_API_KEY) | `2I9Phh1C9k...` |
-| `REACT_APP_PLAN_IDS` | Frontend | IDs de planes (separados por coma) | `1742,1728,1729` |
-| `REACT_APP_LOCATION_CODE` | Frontend | Código de sucursal N1co | `N1C0CD001` |
+### Variables del Frontend (prefijo VITE_)
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `VITE_API_BASE_URL` | URL base de N1co API | `https://api.h4b.dev/api/v3` |
+| `VITE_API_PROXY_URL` | URL del servidor proxy | `http://localhost:3001` |
+| `VITE_PROXY_API_KEY` | Key para el proxy (igual a PROXY_API_KEY) | `2I9Phh1C9k...` |
+| `VITE_PLAN_IDS` | IDs de planes (separados por coma) | `1742,1728,1729` |
+| `VITE_LOCATION_CODE` | Código de sucursal N1co | `N1C0CD001` |
 
 ---
 
@@ -223,7 +228,7 @@ allowedOrigins = [process.env.FRONTEND_URL];
 #### 3. API Key
 ```javascript
 // El frontend debe enviar x-api-key
-headers: { 'x-api-key': process.env.REACT_APP_PROXY_API_KEY }
+headers: { 'x-api-key': import.meta.env.VITE_PROXY_API_KEY }
 ```
 
 #### 4. Rate Limiting
@@ -267,10 +272,20 @@ npm start
 # Solo backend (puerto 3001)
 npm run server
 
-# Build de producción
+# Build de producción con Vite
 npm run build
 
+# Preview del build (probar producción localmente)
+npm run preview
+
+# Iniciar servidor de producción
 node server.js
+
+# Limpiar proyecto
+npm run clean
+
+# Reinstalar desde cero
+npm run fresh
 
 # Tests de seguridad
 ./test-security.sh
@@ -283,29 +298,39 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ## 🚀 Despliegue
 
-### Frontend
+### Frontend (Vite)
 
 1. **Build:**
 ```bash
 npm run build
 ```
 
+Esto generará una carpeta `build/` optimizada para producción.
+
 2. **Variables de entorno:**
 ```
-REACT_APP_API_BASE_URL=https://api.h4b.dev/api/v3
-REACT_APP_API_PROXY_URL=https://tu-backend.herokuapp.com
-REACT_APP_PROXY_API_KEY=tu_api_key_segura
-REACT_APP_PLAN_IDS=1742,1728,1729
-REACT_APP_LOCATION_CODE=N1C0CD001
+VITE_API_BASE_URL=https://api.h4b.dev/api/v3
+VITE_API_PROXY_URL=https://tu-backend.herokuapp.com
+VITE_PROXY_API_KEY=tu_api_key_segura
+VITE_PLAN_IDS=1742,1728,1729
+VITE_LOCATION_CODE=N1C0CD001
 ```
+
+3. **Despliegue en Vercel/Netlify:**
+   - Vercel/Netlify detectarán automáticamente que es un proyecto Vite
+   - Configura las variables de entorno en el panel
+   - El comando de build es: `npm run build`
+   - El directorio de salida es: `build`
 
 ### Backend
 
 1. **Variables de entorno:**
 ```
+PORT=3001
 NODE_ENV=production
 N1CO_CLIENT_ID=tu_client_id
 N1CO_CLIENT_SECRET=tu_client_secret
+API_BASE_URL=https://api.h4b.dev/api/v3
 PROXY_API_KEY=tu_api_key_segura
 FRONTEND_URL=https://tu-app.vercel.app
 ```
@@ -319,6 +344,7 @@ node server.js
 ```javascript
 const PORT = process.env.PORT || 3001;
 ```
+
 
 ## 📚 Documentación Adicional
 

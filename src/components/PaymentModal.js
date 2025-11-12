@@ -108,7 +108,7 @@ const PaymentModal = ({ showModal, selectedPlan, onClose }) => {
           id: savedPaymentMethodId
         },
         authenticationId: authId,
-        locationCode: process.env.REACT_APP_LOCATION_CODE
+        locationCode: import.meta.env.VITE_LOCATION_CODE
       };
 
       console.log('Creating subscription with authentication:', subscriptionPayload);
@@ -216,7 +216,7 @@ const PaymentModal = ({ showModal, selectedPlan, onClose }) => {
           id: paymentMethodId
         },
         authenticationId: null,
-        locationCode: process.env.REACT_APP_LOCATION_CODE
+        locationCode: import.meta.env.VITE_LOCATION_CODE
       };
 
       console.log('Creating subscription with payload:', subscriptionPayload);

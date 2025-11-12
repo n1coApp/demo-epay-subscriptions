@@ -4,7 +4,7 @@ import PaymentModal from './PaymentModal';
 
 // Obtener la lista de IDs de planes desde variables de entorno
 const getPlanIds = () => {
-  const planIdsString = process.env.REACT_APP_PLAN_IDS;
+  const planIdsString = import.meta.env.VITE_PLAN_IDS;
   return planIdsString.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
 };
 

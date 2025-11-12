@@ -15,7 +15,7 @@
 
 import { authManager } from './authManager';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
  * Wrapper para llamadas a la API de N1co con inyección automática de tokens

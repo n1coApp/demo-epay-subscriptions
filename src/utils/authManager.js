@@ -13,12 +13,12 @@
  *   const token = await authManager.getValidToken();
  * 
  * Variables de entorno requeridas:
- * - REACT_APP_API_PROXY_URL (URL del servidor proxy)
- * - REACT_APP_PROXY_API_KEY (API Key para autenticación con el proxy)
+ * - VITE_API_PROXY_URL (URL del servidor proxy)
+ * - VITE_PROXY_API_KEY (API Key para autenticación con el proxy)
  */
 
-const PROXY_URL = process.env.REACT_APP_API_PROXY_URL || 'http://localhost:3001';
-const PROXY_API_KEY = process.env.REACT_APP_PROXY_API_KEY;
+const PROXY_URL = import.meta.env.VITE_API_PROXY_URL || 'http://localhost:3001';
+const PROXY_API_KEY = import.meta.env.VITE_PROXY_API_KEY;
 
 class AuthManager {
   constructor() {

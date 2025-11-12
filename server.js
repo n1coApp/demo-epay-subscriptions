@@ -11,10 +11,12 @@
  * 4. Validación de NODE_ENV
  */
 
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -194,7 +196,7 @@ app.post('/api/auth/token', validateApiKey, async (req, res) => {
 
     // Obtener nuevo token desde N1co API
     const response = await axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/Token`,
+      `${process.env.API_BASE_URL}/Token`,
       {
         clientId: process.env.N1CO_CLIENT_ID,
         clientSecret: process.env.N1CO_CLIENT_SECRET,
@@ -263,7 +265,7 @@ app.listen(PORT, () => {
   console.log('╚════════════════════════════════════════════════════╝');
   console.log(`📍 Server: http://localhost:${PORT}`);
   console.log(`🌍 Environment: ${IS_PRODUCTION ? '� PRODUCTION' : '🔓 DEVELOPMENT'}`);
-  console.log(`�📡 N1co API: ${process.env.REACT_APP_API_BASE_URL}`);
+  console.log(`📡 N1co API: ${process.env.API_BASE_URL}`);
   console.log(`🔐 Client ID: ${process.env.N1CO_CLIENT_ID ? '✓' : '✗'}`);
   console.log(`🔑 Client Secret: ${process.env.N1CO_CLIENT_SECRET ? '✓' : '✗'}`);
   console.log(`🛡️  API Key: ${API_KEY.substring(0, 10)}...${API_KEY.substring(API_KEY.length - 4)}`);
